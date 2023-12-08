@@ -1,8 +1,30 @@
 import { WhiteCard } from '../../components';
+import { useWeddingBoundStore } from '../../stores/wedding';
 
 
 
 export const WeddingInvitationPage = () => {
+
+
+  const firstName = useWeddingBoundStore( state => state.firstName );
+  const lastName = useWeddingBoundStore( state => state.lastName );
+  const guestCount = useWeddingBoundStore( state => state.guestsCount );
+
+  const setFirstName = useWeddingBoundStore( state => state.setFirstName );
+  const setLastName = useWeddingBoundStore( state => state.setLastName );
+  const setGuestsCount = useWeddingBoundStore( state => state.setGuestsCount );
+
+  const eventDate = useWeddingBoundStore( state => state.eventDateYYYYMMDD() );
+  const eventHour = useWeddingBoundStore( state => state.eventHHMM() );
+
+  const setEventDate = useWeddingBoundStore( state => state.setEventDate );
+  const setEventTime = useWeddingBoundStore( state => state.setEventTime );
+
+  const isConfirmed = useWeddingBoundStore( state => state.isConfirmed );
+  const setIsConfirmed = useWeddingBoundStore( state => state.setIsConfirmed );
+
+
+
   return (
     <>
       <h1>Invitación de Boda</h1>
@@ -25,6 +47,8 @@ export const WeddingInvitationPage = () => {
                     name="firstName"
                     id="firstName"
                     placeholder="Primer Nombre"
+                    value={ firstName }
+                    onChange={ ( e ) => setFirstName( e.target.value ) }
                   />
                 </div>
               </div>
@@ -40,6 +64,8 @@ export const WeddingInvitationPage = () => {
                     name="lastName"
                     id="lastName"
                     placeholder="Apellido"
+                    value={ lastName }
+                    onChange={ ( e ) => setLastName( e.target.value ) }
                   />
                 </div>
               </div>
@@ -57,6 +83,8 @@ export const WeddingInvitationPage = () => {
                 placeholder="5"
                 min="0"
                 className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                value={ guestCount }
+                onChange={ ( e ) => setGuestsCount( +e.target.value ) }
               />
             </div>
 
@@ -72,6 +100,8 @@ export const WeddingInvitationPage = () => {
                     type="date"
                     name="eventDate"
                     id="eventDate"
+                    value={ eventDate }
+                    onChange={ ( e ) => setEventDate( e.target.value ) }
                   />
                 </div>
               </div>
@@ -86,6 +116,8 @@ export const WeddingInvitationPage = () => {
                     type="time"
                     name="eventTime"
                     id="eventTime"
+                    value={ eventHour }
+                    onChange={ ( e ) => setEventTime( e.target.value ) }
                   />
                 </div>
               </div>
@@ -102,6 +134,8 @@ export const WeddingInvitationPage = () => {
                     name="isComing"
                     id="radioButton1"
                     className="h-5 w-5"
+                    checked={ isConfirmed }
+                    onChange={ () => setIsConfirmed( true ) }
                   />
                   <label
                     className="pl-3 text-base font-medium text-[#07074D]"
@@ -115,6 +149,9 @@ export const WeddingInvitationPage = () => {
                     name="isComing"
                     id="radioButton2"
                     className="h-5 w-5"
+                    checked={ !isConfirmed }
+                    onChange={ () => setIsConfirmed( false ) }
+
                   />
                   <label
                     className="pl-3 text-base font-medium text-[#07074D]"
