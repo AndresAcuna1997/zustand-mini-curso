@@ -1,7 +1,20 @@
 
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuthStore } from '../stores/auth/auth.store';
 
 export const AuthLayout = () => {
+
+  const status = useAuthStore( state => state.status );
+
+  if ( status === 'pending' ) {
+    checkAuthStatus();
+    return <div>Loading...</div>;
+  }
+
+  if ( status === "authorized" ) {
+    return <Navigate to="/dashboard" />;
+  }
+
   return (
     <div className="bg-gray-100 flex justify-center items-center h-screen">
       <div className="w-1/2 h-screen hidden lg:flex lg:flex-col items-center justify-center bg-indigo-700">
@@ -16,3 +29,7 @@ export const AuthLayout = () => {
     </div>
   );
 };
+
+function checkAuthStatus() {
+  throw new Error( 'Function not implemented.' );
+}
